@@ -16,7 +16,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+// routes for messege sending, storing and home
 Route::get('/message/{id}','MessageController@create')->name('message');
 Route::post('/message/{id}','MessageController@store')->name('message.send');
 Route::get('/home', 'HomeController@index')->name('home');
+
+//routes for groupchat
 Route::get('/groupchat', 'HomeController@show');
+
+
+// routes for SocialLogin
+Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
+Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
